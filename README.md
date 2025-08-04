@@ -311,7 +311,7 @@ AlertGlass.config.icons = {
 
 ## 🧪 Testing
 
-Visit `alert-glass.html` to see all alert types in action!
+Visit `[alert-glass.html](https://r00t20n3.github.io/alertglass/)` to see all alert types in action!
 
 ## 📋 Browser Support
 
