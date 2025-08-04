@@ -19,6 +19,7 @@
 
         .glass-morph-item {
             background: rgba(0, 0, 0, 0.95);
+            -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
@@ -28,19 +29,23 @@
             font-weight: 500;
             color: #ffffff;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            -webkit-transform: translateX(100%);
             transform: translateX(100%);
             opacity: 0;
+            -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
         .glass-morph-item.show {
+            -webkit-transform: translateX(0);
             transform: translateX(0);
             opacity: 1;
         }
 
         .glass-morph-item.hide {
+            -webkit-transform: translateX(100%);
             transform: translateX(100%);
             opacity: 0;
         }
@@ -98,6 +103,7 @@
         .glass-morph-close:hover {
             background: rgba(255, 255, 255, 0.2);
             color: #ffffff;
+            -webkit-transform: scale(1.05);
             transform: scale(1.05);
         }
 
@@ -125,6 +131,7 @@
         }
 
         .glass-morph-btn:hover {
+            -webkit-transform: translateY(-1px);
             transform: translateY(-1px);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
@@ -255,23 +262,49 @@
         }
 
         /* Animation keyframes */
+        @-webkit-keyframes slideIn {
+            from {
+                -webkit-transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                -webkit-transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
         @keyframes slideIn {
             from {
+                -webkit-transform: translateX(100%);
                 transform: translateX(100%);
                 opacity: 0;
             }
             to {
+                -webkit-transform: translateX(0);
                 transform: translateX(0);
                 opacity: 1;
             }
         }
 
+        @-webkit-keyframes slideOut {
+            from {
+                -webkit-transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                -webkit-transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
         @keyframes slideOut {
             from {
+                -webkit-transform: translateX(0);
                 transform: translateX(0);
                 opacity: 1;
             }
             to {
+                -webkit-transform: translateX(100%);
                 transform: translateX(100%);
                 opacity: 0;
             }
