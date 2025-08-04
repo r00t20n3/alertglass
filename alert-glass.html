@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts - GlassMorph Demo -  Frank I. - 2025</title>
+    <script src="AlertGlass.js"></script>
+    <style>
+        /* Base styles for standalone demo */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('') repeat;
+            pointer-events: none;
+        }
+        
+        .centered-layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        /* Demo specific styles */
+        .demo-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+        }
+        
+        .demo-section h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .demo-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .demo-btn {
+            padding: 12px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .demo-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .demo-btn.success {
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+        
+        .demo-btn.error {
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+        
+        .demo-btn.warning {
+            border-color: rgba(251, 191, 36, 0.3);
+            color: #fbbf24;
+        }
+        
+        .demo-btn.info {
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #3b82f6;
+        }
+        
+        .demo-btn.dialog {
+            border-color: rgba(139, 92, 246, 0.3);
+            color: #8b5cf6;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .demo-container {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .demo-buttons {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .demo-section h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="centered-layout">
+    <div class="demo-container">
+        <h1 style="color: #ffffff; text-align: center; margin-bottom: 40px; font-size: 32px;">
+            🎉 GlassMorph Alert System Demo
+        </h1>
+        
+        <div class="demo-section">
+            <h2>Basic Alerts</h2>
+            <div class="demo-buttons">
+                <button class="demo-btn success" onclick="AlertGlass.success('Operation completed successfully!')">
+                    Success Alert
+                </button>
+                <button class="demo-btn error" onclick="AlertGlass.error('Something went wrong!')">
+                    Error Alert
+                </button>
+                <button class="demo-btn warning" onclick="AlertGlass.warning('Please check your input.')">
+                    Warning Alert
+                </button>
+                <button class="demo-btn info" onclick="AlertGlass.info('Here is some information.')">
+                    Info Alert
+                </button>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Alerts with Custom Titles</h2>
+            <div class="demo-buttons">
+                <button class="demo-btn success" onclick="AlertGlass.success('User profile updated!', 'Profile Updated')">
+                    Custom Success
+                </button>
+                <button class="demo-btn error" onclick="AlertGlass.error('Database connection failed', 'Connection Error')">
+                    Custom Error
+                </button>
+                <button class="demo-btn warning" onclick="AlertGlass.warning('Low disk space detected', 'System Warning')">
+                    Custom Warning
+                </button>
+                <button class="demo-btn info" onclick="AlertGlass.info('New features available', 'Update Available')">
+                    Custom Info
+                </button>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Dialog Alerts (Yes/No)</h2>
+            <div class="demo-buttons">
+                <button class="demo-btn dialog" onclick="showDeleteDialog()">
+                    Delete Confirmation
+                </button>
+                <button class="demo-btn dialog" onclick="showSaveDialog()">
+                    Save Changes
+                </button>
+                <button class="demo-btn dialog" onclick="showCustomDialog()">
+                    Custom Dialog
+                </button>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Advanced Features</h2>
+            <div class="demo-buttons">
+                <button class="demo-btn" onclick="showPersistentAlert()">
+                    Persistent Alert (No Auto-Close)
+                </button>
+                <button class="demo-btn" onclick="showCustomAlert()">
+                    Custom Alert
+                </button>
+                <button class="demo-btn" onclick="AlertGlass.closeAll()">
+                    Close All Alerts
+                </button>
+                <button class="demo-btn" onclick="showMultipleAlerts()">
+                    Show Multiple Alerts
+                </button>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Legacy Compatibility</h2>
+            <div class="demo-buttons">
+                <button class="demo-btn success" onclick="showAlert('Legacy success message', 'success')">
+                    Legacy Success
+                </button>
+                <button class="demo-btn error" onclick="showAlert('Legacy error message', 'error')">
+                    Legacy Error
+                </button>
+                <button class="demo-btn warning" onclick="showAlert('Legacy warning message', 'warning')">
+                    Legacy Warning
+                </button>
+                <button class="demo-btn info" onclick="showAlert('Legacy info message', 'info')">
+                    Legacy Info
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dialog examples
+        function showDeleteDialog() {
+            AlertGlass.dialog(
+                'Are you sure you want to delete this item? This action cannot be undone.',
+                'Confirm Delete',
+                function(action) {
+                    if (action === 'confirm') {
+                        AlertGlass.success('Item deleted successfully!');
+                    } else {
+                        AlertGlass.info('Delete cancelled.');
+                    }
+                }
+            );
+        }
+        
+        function showSaveDialog() {
+            AlertGlass.dialog(
+                'Do you want to save your changes before leaving?',
+                'Save Changes',
+                function(action) {
+                    if (action === 'confirm') {
+                        AlertGlass.success('Changes saved successfully!');
+                    } else {
+                        AlertGlass.warning('Changes not saved.');
+                    }
+                }
+            );
+        }
+        
+        function showCustomDialog() {
+            AlertGlass.show({
+                type: 'dialog',
+                title: 'Custom Action',
+                message: 'Choose your preferred action:',
+                duration: 0,
+                closable: false,
+                actions: [
+                    { key: 'option1', text: 'Option 1' },
+                    { key: 'option2', text: 'Option 2' },
+                    { key: 'option3', text: 'Option 3', primary: true }
+                ]
+            });
+        }
+        
+        function showPersistentAlert() {
+            AlertGlass.show({
+                type: 'info',
+                title: 'Persistent Alert',
+                message: 'This alert will not auto-close. Click the X to close it.',
+                duration: 0,
+                closable: true
+            });
+        }
+        
+        function showCustomAlert() {
+            AlertGlass.show({
+                type: 'success',
+                title: 'Custom Alert',
+                message: 'This is a custom alert with specific options.',
+                duration: 10000, // 10 seconds
+                closable: true
+            });
+        }
+        
+        function showMultipleAlerts() {
+            AlertGlass.success('First alert!');
+            setTimeout(() => AlertGlass.error('Second alert!'), 500);
+            setTimeout(() => AlertGlass.warning('Third alert!'), 1000);
+            setTimeout(() => AlertGlass.info('Fourth alert!'), 1500);
+        }
+    </script>
+</body>
+</html> 
